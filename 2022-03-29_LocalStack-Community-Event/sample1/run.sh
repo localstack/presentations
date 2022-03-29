@@ -1,7 +1,11 @@
 #!/bin/bash
 
-terraform init
-terraform apply
+# make sure "tflocal" is installed
+pip install terraform-local
+
+# deploy the stack
+tflocal init
+tflocal apply
 
 # Send message to SQS queue -> should trigger Lambda function
 awslocal sqs send-message --queue-url http://localhost:4566/000000000000/terraform-sqs-test --message-body '{"hello":"world"}'

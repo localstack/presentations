@@ -1,6 +1,7 @@
 # ----
 # configure providers to use local endpoints
 # ----
+# NOTE: No longer needed if we're using the "tflocal" utility script! See https://github.com/localstack/terraform-local
 //provider "aws" {
 //  access_key                  = "test"
 //  secret_key                  = "test"
@@ -40,7 +41,7 @@
 # ----
 
 resource "aws_s3_bucket" "test-bucket" {
-  bucket = "my-bucket"
+  bucket = "tf-bucket-1"
 }
 
 # ----
@@ -52,22 +53,12 @@ resource "aws_sqs_queue" "test_queue" {
 }
 
 # ----
-# Kinesis stream
-# ----
-
-//resource "aws_kinesis_stream" "test_stream" {
-//  name             = "terraform-kinesis-test"
-//  shard_count      = 1
-//  retention_period = 48
-//}
-
-# ----
 # IAM roles and policies
 # ----
 
 resource "aws_iam_role_policy" "invocation_policy" {
   name = "default"
-  role = "${aws_iam_role.lambda.id}"
+  role = aws_iam_role.lambda.id
 
   policy = <<EOF
 {
@@ -110,7 +101,7 @@ resource "aws_lambda_function" "test_lambda" {
 }
 
 # ----
-# Lambda event source mapping from SQS queue / Kinesis stream
+# Lambda event source mapping from SQS queue
 # ----
 
 resource "aws_lambda_event_source_mapping" "mapping2" {
@@ -119,8 +110,15 @@ resource "aws_lambda_event_source_mapping" "mapping2" {
   starting_position = "LATEST"
 }
 
-//resource "aws_lambda_event_source_mapping" "mapping1" {
-//  event_source_arn  = aws_kinesis_stream.test_stream.arn
-//  function_name     = aws_lambda_function.test_lambda.arn
-//  starting_position = "LATEST"
-//}
+# ----
+# S3 bucket notification to SQS queue
+# ----
+
+resource "aws_s3_bucket_notification" "bucket_notification" {
+  bucket = aws_s3_bucket.test-bucket.id
+
+  queue {
+    queue_arn     = aws_sqs_queue.test_queue.arn
+    events        = ["s3:ObjectCreated:*"]
+  }
+}

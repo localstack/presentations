@@ -1,5 +1,5 @@
 def handler(event, context):
-    print("Hello from LocalStack! - Hello AWS Vienna Meetup 123!!")
+    print("Hello from LocalStack!!")
 
     # list_buckets()
 
