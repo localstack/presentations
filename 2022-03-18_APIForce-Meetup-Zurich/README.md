@@ -1,5 +1,5 @@
-# AWS Meetup Vienna - 2022-02-24
+# API Force Meetup - 2022-03-18
 
-* Meetup details: https://www.meetup.com/Amazon-Web-Services-AWS-Vienna/events/283548428/
-* Recording: https://www.youtube.com/watch?v=axON2nLx5G8
-* Slides: https://docs.google.com/presentation/d/1k8u9CUy6SG1wAinumvL-ccB5pZ5PSJMXXPeY5AfKatM
+* Meetup details: https://meetups.mulesoft.com/events/details/mulesoft-zurich-presents-apiforce-embrace-exchange
+* Recording: https://youtu.be/j-7HwWGDOvM?t=2586
+* Slides: https://docs.google.com/presentation/d/1-RCYjRE0cMh786jfYID0CTfGFazgcrFJAjuw5RzUkYM
