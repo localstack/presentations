@@ -2,3 +2,4 @@ node_modules/
 .terraform*
 *.pyc
 terraform.tfstate*
+.idea/
