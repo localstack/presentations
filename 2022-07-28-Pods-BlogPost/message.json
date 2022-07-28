@@ -1,0 +1,14 @@
+{
+  "City": {
+    "DataType": "String",
+    "StringValue": "Any City"
+  },
+  "Greeting": {
+    "DataType": "Binary",
+    "StringValue": "Hello, World!"
+  },
+  "Population": {
+    "DataType": "Number",
+    "StringValue": "1250800"
+  }
+}
