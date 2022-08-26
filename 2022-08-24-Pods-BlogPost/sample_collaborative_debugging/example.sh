@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# -------------------------
+# Resources created by Bob
+# -------------------------
+
 # create the queue
 queue_url=$(awslocal sqs create-queue --queue-name test-queue | jq .QueueUrl | xargs) 
 
@@ -28,3 +32,23 @@ awslocal secretsmanager create-secret --name test-secret --secret-string my-secr
 awslocal sqs send-message --queue-url $queue_url \
         --message-body "Message example" \
         --message-attributes file://message.json
+
+
+# -------------------------
+# Cloud Pods workflow
+# -------------------------
+
+# Bob pushing the state in a Cloud Pod
+localstack pod push --name test-pod
+
+# Alice pulling the state pushed by Bob
+localstack pod pull --name test-pod
+
+# Alice doing her fixes
+# ...
+
+# Alice updating the content of the pod
+localstack pod push --name test-pod
+
+# Bob pulling the final version of the pod
+localstack pod pull --name test-pod
