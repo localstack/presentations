@@ -51,7 +51,7 @@ def handler(event, context):
     records = [json.loads(line) for line in log_content.split("\n") if line.strip()]
     alerts = []
 
-    print("HELLO World! test123")
+    print("HELLO World! Hi LSEG!")
 
     for record in records:
         # filter log records to create alerts
@@ -59,9 +59,9 @@ def handler(event, context):
             alert = None
 
             # TODO: adjust the here thresholds here
-            if record['cpu'] >= 90:
+            if record['cpu'] >= 80:
                 alert = {"timestamp": record['timestamp'], "level": "CRITICAL", "message": "Critical CPU utilization"}
-            elif record['cpu'] >= 60:
+            elif record['cpu'] >= 70:
                 alert = {"timestamp": record['timestamp'], "level": "WARNING", "message": "High CPU utilization"}
 
             if alert:

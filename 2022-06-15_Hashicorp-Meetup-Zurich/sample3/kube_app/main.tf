@@ -65,3 +65,29 @@ resource "kubernetes_manifest" "nginx-ingress" {
 
   depends_on = [kubernetes_service.nginx]
 }
+
+resource "kubernetes_manifest" "nginx-ingress2" {
+  manifest = yamldecode(<<EOF
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    metadata:
+      name: nginx2
+      namespace: default
+      annotations:
+        ingress.kubernetes.io/ssl-redirect: "false"
+    spec:
+      rules:
+      - http:
+          paths:
+          - path: /app2
+            pathType: Prefix
+            backend:
+              service:
+                name: tf-nginx
+                port:
+                  number: 8080
+    EOF
+  )
+
+  depends_on = [kubernetes_service.nginx]
+}

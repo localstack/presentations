@@ -1,7 +1,7 @@
 def handler(event, context):
-    print("Hello from LocalStack!!")
+    print("Hello from LocalStack! Hello AWS!", event)
 
-    # list_buckets()
+    list_buckets()
 
 
 def list_buckets():

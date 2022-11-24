@@ -51,7 +51,7 @@ def handler(event, context):
     records = [json.loads(line) for line in log_content.split("\n") if line.strip()]
     alerts = []
 
-    print("HELLO World HUG!")
+    print("HELLO World, Taras!")
 
     for record in records:
         # filter log records to create alerts
