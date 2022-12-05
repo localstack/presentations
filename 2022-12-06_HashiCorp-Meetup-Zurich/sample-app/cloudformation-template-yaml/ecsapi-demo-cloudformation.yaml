@@ -473,7 +473,7 @@ Resources:
         - FARGATE
       ContainerDefinitions:
           - Name: 'FoodstoreFoods'
-            Image: 'localstack/ecsapi-demo-foodstore:latest'
+            Image: 'localstack.container-registry.com/library/foodstore'
             Essential: true
             PortMappings:
               - ContainerPort: 8080
@@ -493,7 +493,7 @@ Resources:
         - FARGATE
       ContainerDefinitions:
           - Name: 'PetstorePets'
-            Image: 'localstack/ecsapi-demo-petstore:latest'
+            Image: 'localstack.container-registry.com/library/petstore'
             Essential: true
             PortMappings:
               - ContainerPort: 8080

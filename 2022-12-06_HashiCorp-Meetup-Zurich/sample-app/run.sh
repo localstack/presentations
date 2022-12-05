@@ -8,8 +8,8 @@ STACK=stack1
 CF_FILE=cloudformation-template-yaml/ecsapi-demo-cloudformation.yaml
 
 test -e $CF_FILE || curl -o $CF_FILE https://pomatas-public-blogs.s3.amazonaws.com/ecsapi-demo-testapi/ecsapi-demo-cloudformation.yaml
-sed -i "" -e 's|simonepomata/ecsapi-demo-foodstore|localstack/ecsapi-demo-foodstore|g' $CF_FILE
-sed -i "" -e 's|simonepomata/ecsapi-demo-petstore|localstack/ecsapi-demo-petstore|g' $CF_FILE
+sed -i "" -e 's|simonepomata/ecsapi-demo-foodstore|localstack.container-registry.com/library/foodstore|g' $CF_FILE
+sed -i "" -e 's|simonepomata/ecsapi-demo-petstore|localstack.container-registry.com/library/foodstore|g' $CF_FILE
 
 echo Deploying CloudFormation stack ...
 awslocal cloudformation create-stack --stack-name $STACK --template-body file://$CF_FILE
