@@ -7,6 +7,8 @@ import numpy
 from sklearn import datasets, svm, metrics
 from sklearn.utils import Bunch
 from sklearn.model_selection import train_test_split
+from joblib import dump, load
+import tempfile
 
 
 def handler(event, context):
@@ -28,11 +30,17 @@ def handler(event, context):
     # Learn the digits on the train subset
     clf.fit(X_train, y_train)
 
-    # Predict the value of the digit on the test subset
-    predicted = clf.predict(X_test)
-    print("--> prediction result:", predicted)
-
-    # Note: the trained model can be used here for predictions, uploaded the S3 again, etc...
+    # Dump the trained model to S3
+    s3_client = boto3.client("s3")
+    with tempfile.TemporaryFile() as tf:
+        dump(clf, tf)
+        tf.seek(0)
+        s3_client.put_object(Body=tf.read(), Bucket="pods-test", Key="model.joblib")
+    
+    # Save the test-set to the S3 bucket
+    numpy.save('test-set.npy', X_test)
+    with open('test-set.npy', 'rb') as f:
+        s3_client.put_object(Body=f, Bucket="pods-test", Key="test-set.npy")
 
 
 def load_digits(*, n_class=10, return_X_y=False, as_frame=False):
