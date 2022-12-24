@@ -8,7 +8,7 @@ from sklearn import datasets, svm, metrics
 from sklearn.utils import Bunch
 from sklearn.model_selection import train_test_split
 from joblib import dump, load
-import tempfile
+import io
 
 
 def handler(event, context):
@@ -32,10 +32,9 @@ def handler(event, context):
 
     # Dump the trained model to S3
     s3_client = boto3.client("s3")
-    with tempfile.TemporaryFile() as tf:
-        dump(clf, tf)
-        tf.seek(0)
-        s3_client.put_object(Body=tf.read(), Bucket="pods-test", Key="model.joblib")
+    buffer = io.BytesIO()
+    dump(clf, buffer)
+    s3_client.put_object(Body=buffer.getvalue(), Bucket="pods-test", Key="model.joblib")
     
     # Save the test-set to the S3 bucket
     numpy.save('test-set.npy', X_test)
