@@ -35,7 +35,7 @@ POLICY
 resource "aws_lambda_function" "func" {
   # instead of deploying the lambda from a zip file,
   # we can also deploy it using local code mounting
-  s3_bucket = "__local__"
+  s3_bucket = "hot-reload"
   s3_key    = "${path.cwd}/lambda"
 
   # filename      = "lambda.zip"
