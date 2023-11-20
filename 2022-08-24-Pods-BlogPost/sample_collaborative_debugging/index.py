@@ -1,8 +1,7 @@
-import json
 import boto3
 import os
 
-endpoint_url = f'http://{os.environ["LOCALSTACK_HOSTNAME"]}:{os.environ["EDGE_PORT"]}'
+endpoint_url = os.environ["AWS_ENDPOINT_URL"]
 # region is wrong!! it should have been us-west-2
 region = "eu-east-1" 
 secret_name = "test-secret"
@@ -14,4 +13,4 @@ def handler(event, context):
         "Name": result["Name"],
         "SecretString": result["SecretString"],
         "ARN": result["ARN"]
-    }   
+    }
