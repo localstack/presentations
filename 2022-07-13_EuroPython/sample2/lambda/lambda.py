@@ -1,13 +1,14 @@
 import json
-
+import os
 import boto3
 
 # configuration
 alerts_queue_name = "alerts-queue"
 
 # AWS SDK clients
-s3 = boto3.client("s3")
-sqs = boto3.client("sqs")
+endpoint_url = os.getenv("AWS_ENDPOINT_URL")
+s3 = boto3.client("s3", endpoint_url=endpoint_url)
+sqs = boto3.client("sqs", endpoint_url=endpoint_url)
 
 
 # =============
