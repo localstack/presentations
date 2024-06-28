@@ -28,7 +28,7 @@ snow_sql.sh 'SELECT jurisdiction, sum(dose1_allocations) as vaccinations FROM co
 # ---
 # https://quickstarts.snowflake.com/guide/getting_started_with_snowflake/#2
 # https://github.com/Snowflake-Labs/sfguide-data-apps-demo
-# make sure to start LocalStack Snowflake with:
+# make sure to start LocalStack Snowflake with: DNS_NAME_PATTERNS_TO_RESOLVE_UPSTREAM=demo-citibike-data.s3.amazonaws.com
 
 cd ../../localstack-samples/sfguide-data-apps-demo/
 # list the files in the public S3 bucket
@@ -59,3 +59,10 @@ make start
 
 localstack pod load pod-snowflake
 snow_sql.sh 'select * from test'
+
+# ---
+# Sample 6: Simple Streamlit App
+# ---
+
+cd ../../tmp/localstack-snowflake-samples/streamlit-snowpark-dynamic-filters
+
