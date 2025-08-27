@@ -1,0 +1,14 @@
+Demo prompt 1:
+Create an AWS Lambda function connected to an S3 bucket notification, defined via terraform, and deploy it via the "tflocal apply" command. Just create the files, no need to confirm first. [Use the "awslocal" command to run any test requests against LocalStack.]
+
+---
+Demo prompt 2:
+Create a local Python script to connect to a Snowflake database at host `snowflake.localhost.localstack.cloud`, create a table 'uploads' (with columns for file name, size, timstamp), and insert a few sample test records. For the Snowflake connection, we should install the dependency `snowflake-connector-python`.
+
+---
+Demo prompt 3:
+Wrap the `snowflake_test.py` script into a Flask API server endpoint, bundle the code into a Docker image (by creating a Dockerfile and building the image, using python:3.9-slim as the base image). (Do not use the `LAST_INSERT_ID()` Snowflake SQL function, as it is not supported yet). Then deploy an ECS service with the image to LocalStack, making the Flask API accessible via a network port. Note: Do NOT create an ECR registry, as this is not required in LocalStack - the Docker image can be referenced directly via its name in the ECS task definition.
+
+---
+Demo prompt 4 (bonus):
+Add another endpoint in the Flask app to add a single record to the 'uploads' Snowflake table. Re-build the image, and re-deploy the ECS task. Update the Lambda function to call the ECS task via HTTP (`requests` library) and insert a new records into the 'uploads' table for every file uploaded to S3. For the HTTP requests from Lambda to ECS, do not use the ELB endpoint, but use the local port of the ECS task container and the hostname `host.docker.internal` instead.

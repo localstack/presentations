@@ -1,0 +1,29 @@
+{
+    "mcpServers": {
+      "awslabs-aws-api-mcp-server": {
+        "command": "uvx",
+        "args": ["awslabs.aws-api-mcp-server@latest"],
+        "env": {
+          "AWS_REGION": "us-east-1",
+          "AWS_PROFILE": "localstack",
+          "AWS_API_MCP_PROFILE_NAME": "localstack",
+          "AWS_API_MCP_WORKING_DIR": ""
+        }
+      },
+      "aws-mcp-server": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "--name=ls-aws-mcp-server",
+        "--add-host=localhost.localstack.cloud:192.168.65.254",
+        "-e",
+        "AWS_PROFILE=localstack",
+        "-v",
+        "$HOME/.aws:/home/appuser/.aws:ro",
+        "ghcr.io/alexei-led/aws-mcp-server"
+      ]
+    }
+    }
+  }

@@ -3,3 +3,5 @@ node_modules/
 *.pyc
 terraform.tfstate*
 .idea/
+**/lambda/*/
+*.zip
